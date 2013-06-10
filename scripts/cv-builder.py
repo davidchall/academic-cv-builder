@@ -1,17 +1,18 @@
 #!/usr/bin/env python
 
-import yaml
 import os
 from cvbuilder import environment, cmdline
-from cvbuilder.Loader import Loader
+from cvbuilder.parser import YamlParser
+from yaml.constructor import ConstructorError
 
 if __name__ == '__main__':
     options = cmdline.get_cmd_line_args()
 
+    parser = YamlParser()
     try:
-        cv_data       = yaml.load(open(options.input,    'r'), Loader=Loader)
-        template_data = yaml.load(open(options.template, 'r'), Loader=Loader)
-    except yaml.constructor.ConstructorError:
+        cv_data       = parser.parse_file(options.input)
+        template_data = parser.parse_file(options.template)
+    except ConstructorError:
         raise
 
     env = environment.get_jinja_env(template_data)
