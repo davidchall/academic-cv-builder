@@ -1,2 +1,3 @@
 *.pyc
 academic-cv-builder.sublime-*
+*.egg-info
