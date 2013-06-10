@@ -8,6 +8,6 @@ setup(
     version='0.1',
     packages=find_packages(),
     scripts=['scripts/cv-builder'],
-    data_files=[('templates', ['templates/*.tex', 'templates/*.yaml'])],
+    include_package_data=True,
     install_requires=['PyYAML>=3.01', 'Jinja2', 'pybtex>=0.16'],
 )

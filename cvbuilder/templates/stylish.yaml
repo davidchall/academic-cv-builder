@@ -1,5 +1,5 @@
 name: stylish
-file: templates/stylish.tex
+file: stylish.tex
 language: xelatex
 
 strings:

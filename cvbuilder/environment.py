@@ -1,10 +1,10 @@
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, PackageLoader
 from pybtex.style.formatting.unsrt import Style
 from pybtex.backends import latex, html
 import re
 
 def get_jinja_env(template_data):
-    env = Environment(loader=FileSystemLoader('/Users/David/Documents/code/academic-cv-builder'))
+    env = Environment(loader=PackageLoader('cvbuilder', 'templates'))
 
     # Change start/end strings if necessary
     # For TEX templates, this is _always_ necessary

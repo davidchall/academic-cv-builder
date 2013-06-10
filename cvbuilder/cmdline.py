@@ -16,7 +16,7 @@ def get_cmd_line_args():
                       help="Output file")
 
     parser.add_option('-t', "--template",
-                      dest="template", default="/Users/David/Documents/code/academic-cv-builder/templates/stylish.yaml",
+                      dest="template", default="stylish.yaml",
                       help="YAML file containing template data")
 
     (opts, args) = parser.parse_args()

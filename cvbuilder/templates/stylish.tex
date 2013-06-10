@@ -217,7 +217,8 @@
 %   PUBLICATIONS
 %----------------------------------------------------------------------------------------
 
-((* if publications.peer_reviewed *))
+((* if publications is defined *))
+((* if publications.peer_reviewed is defined *))
 \section{Peer Reviewed Journal Articles}
 
 ((* for paper in publications.peer_reviewed|bibtex("latex") *))
@@ -227,6 +228,7 @@
 
 \vspace{6pt}
 ((* endfor *))
+((* endif *))
 ((* endif *))
 
 %----------------------------------------------------------------------------------------
