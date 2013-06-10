@@ -1,0 +1,236 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Stylish Curriculum Vitae
+% LaTeX Template
+% Version 1.0 (18/7/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Stefano (http://stefano.italians.nl/)
+%
+% IMPORTANT: THIS TEMPLATE NEEDS TO BE COMPILED WITH XeLaTeX
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+% The main font used in this template, Adobe Garamond Pro, does not 
+% come with Windows by default. You will need to download it in
+% order to get an output as in the preview PDF. Otherwise, change this 
+% font to one that does come with Windows or comment out the font line 
+% to use the default LaTeX font.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper, oneside, final]{scrartcl} % Paper options using the scrartcl class
+
+\usepackage{scrpage2} % Provides headers and footers configuration
+\usepackage{titlesec} % Allows creating custom \section's
+\usepackage{marvosym} % Allows the use of symbols
+\usepackage{tabularx,colortbl} % Advanced table configurations
+\usepackage{fontspec} % Allows font customization
+\usepackage{calc} % Allows dynamic spacing calculations
+\usepackage{hyperref} % Enable hyperlinks
+
+\defaultfontfeatures{Mapping=tex-text}
+\setmainfont{Optima} % Main document font
+
+\titleformat{\section}{\large\scshape\raggedright}{}{0em}{}[\titlerule] % Section formatting
+
+\pagestyle{scrheadings} % Print the headers and footers on all pages
+
+\addtolength{\voffset}{-0.5in} % Adjust the vertical offset - less whitespace at the top of the page
+\addtolength{\textheight}{3cm} % Adjust the text height - less whitespace at the bottom of the page
+
+%----------------------------------------------------------------------------------------
+% ÊFOOTER SECTION
+%----------------------------------------------------------------------------------------
+
+\renewcommand{\headfont}{\normalfont\rmfamily\scshape} % Font settings for footer
+
+\cofoot{
+\addfontfeature{LetterSpace=20.0}\fontsize{12.5}{17}\selectfont % Letter spacing and font size
+
+((( contact.address|join(' {\large\\textperiodcentered} ') ))) \\ % Your mailing address
+{\Large\Letter} ((( contact.email|escape_tex ))) \ {\Large\Telefon} ((( contact.telephone|escape_tex ))) % Your email address and phone number
+}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{center} % Center everything in the document
+
+%----------------------------------------------------------------------------------------
+% ÊHEADER SECTION
+%----------------------------------------------------------------------------------------
+
+{\addfontfeature{LetterSpace=20.0}\fontsize{36}{36}\selectfont\scshape ((( contact.name|escape_tex )))} % Your name at the top
+
+\vspace{1.5cm} % Extra whitespace after the large name at the top
+
+%----------------------------------------------------------------------------------------
+%   OBJECTIVE
+%----------------------------------------------------------------------------------------
+
+((* if objective *))
+\section{Objective}
+
+((( objective|escape_tex )))
+((* endif *))
+
+%----------------------------------------------------------------------------------------
+%   WORK EXPERIENCE
+%----------------------------------------------------------------------------------------
+
+((* if work *))
+\section{Work Experience}
+
+((* for item in work *))
+\begin{tabularx}{0.97\linewidth}{>{\raggedleft\scshape}p{2cm}X}
+\gray Period & \textbf{((( item.start_date|datetimeformat|escape_tex ))) - ((( item.end_date|datetimeformat|escape_tex )))}\\
+\gray Employer & \textbf{((( item.employer|escape_tex )))} \hfill ((( item.location|escape_tex )))\\
+\gray Position & \textbf{((( item.position|escape_tex )))}\\
+& ((( item.description|escape_tex )))
+\end{tabularx}
+
+\vspace{12pt}
+
+((* endfor *))
+((* endif *))
+
+%----------------------------------------------------------------------------------------
+%   RESEARCH EXPERIENCE
+%----------------------------------------------------------------------------------------
+
+((* if research *))
+\section{Research Experience}
+
+((* for item in research *))
+\begin{tabularx}{0.97\linewidth}{>{\raggedleft\scshape}p{2cm}X}
+\gray Period & \textbf{((( item.start_date|datetimeformat|escape_tex ))) - ((( item.end_date|datetimeformat|escape_tex )))}\\
+\gray Employer & \textbf{((( item.employer|escape_tex )))} \hfill ((( item.location|escape_tex )))\\
+\gray Position & \textbf{((( item.position|escape_tex )))}\\
+& ((( item.description|escape_tex )))
+\end{tabularx}
+
+\vspace{12pt}
+
+((* endfor *))
+((* endif *))
+
+%----------------------------------------------------------------------------------------
+%   EDUCATION
+%----------------------------------------------------------------------------------------
+
+((* if education *))
+\section{Education}
+
+((* for item in education|sort(attribute='start_date',reverse=True) *))
+\begin{tabularx}{0.97\linewidth}{X}
+\textbf{((( item.school|escape_tex )))}, ((( item.location|escape_tex ))) \hfill ((( item.start_date|datetimeformat|escape_tex ))) - ((( item.end_date|datetimeformat|escape_tex ))) \\
+\textbf{((( item.qualification|escape_tex )))} in ((( item.subject|escape_tex ))) \hfill ((* if item.classification *)) ((( item.classification|escape_tex ))) ((* endif *)) \\
+((* if item.description is string *))
+\hspace*{\fill}\begin{minipage}{\linewidth-0.5cm} ((( item.description|escape_tex ))) \end{minipage} \\
+((* elif item.description is iterable *))
+((* for point in item.description *))
+\hspace*{\fill}\begin{minipage}{\linewidth-0.5cm}$\bullet$ ((( point|escape_tex ))) \end{minipage} \\
+((* endfor *))
+((* endif *))
+\end{tabularx}
+
+\vspace{12pt}
+
+((* endfor *))
+((* endif *))
+
+%----------------------------------------------------------------------------------------
+%   TEACHING EXPERIENCE
+%----------------------------------------------------------------------------------------
+
+((* if teaching *))
+\section{Teaching Experience}
+
+((* for item in teaching|sort(attribute='start_date',reverse=True) *))
+\begin{tabularx}{0.97\linewidth}{X}
+\textbf{((( item.position|escape_tex )))}((* if item.location *)), ((( item.location|escape_tex )))((* endif *)) \hfill ((( item.start_date|datetimeformat|escape_tex ))) ((* if item.end_date *)) - ((( item.end_date|datetimeformat|escape_tex ))) ((* endif *)) \\
+((* if item.description *)) \hspace*{\fill}\begin{minipage}{\linewidth-0.5cm} ((( item.description|escape_tex ))) \end{minipage} \\((* endif *))
+\end{tabularx}
+
+\vspace{6pt}
+
+((* endfor *))
+((* endif *))
+
+%----------------------------------------------------------------------------------------
+%   SKILLS
+%----------------------------------------------------------------------------------------
+
+((* if skills *))
+\section{Skills}
+
+\begin{tabular}{ @{} >{\bfseries}l @{\hspace{6ex}} l }
+((* for group in skills *))
+((( group.area|escape_tex ))) & ((( group.skills|join(', ')|escape_tex ))) \\
+((* endfor *))
+\end{tabular}
+
+((* endif *))
+
+%----------------------------------------------------------------------------------------
+%   AWARDS
+%----------------------------------------------------------------------------------------
+
+((* if awards *))
+\section{Awards}
+
+((* for item in awards|sort(attribute='start_date',reverse=True) *))
+\begin{tabularx}{0.97\linewidth}{X}
+\textbf{((( item.title|escape_tex )))}((* if item.from *)), ((( item.from|escape_tex )))((* endif *)) \hfill ((( item.start_date|datetimeformat|escape_tex ))) ((* if item.end_date *)) - ((( item.end_date|datetimeformat|escape_tex ))) ((* endif *)) \\
+((* if item.description *)) \hspace*{\fill}\begin{minipage}{\linewidth-0.5cm} ((( item.description|escape_tex ))) \end{minipage} \\((* endif *))
+\end{tabularx}
+
+\vspace{6pt}
+
+((* endfor *))
+((* endif *))
+
+%----------------------------------------------------------------------------------------
+%   ACTIVITIES
+%----------------------------------------------------------------------------------------
+
+((* if activities *))
+\section{Activities}
+
+((* for item in activities|sort(attribute='start_date',reverse=True) *))
+\begin{tabularx}{0.97\linewidth}{X}
+\textbf{((( item.event|escape_tex )))}, ((( item.location|escape_tex )))\hfill ((( item.start_date|datetimeformat|escape_tex ))) \\
+((* if item.description *)) \hspace*{\fill}\begin{minipage}{\linewidth-0.5cm}\textit{((( item.description|escape_tex ))) } \end{minipage} \\((* endif *))
+\end{tabularx}
+
+\vspace{6pt}
+
+((* endfor *))
+((* endif *))
+
+%----------------------------------------------------------------------------------------
+%   PUBLICATIONS
+%----------------------------------------------------------------------------------------
+
+((* if publications.peer_reviewed *))
+\section{Peer Reviewed Journal Articles}
+
+((* for paper in publications.peer_reviewed|bibtex("latex") *))
+\begin{tabularx}{0.97\linewidth}{X}
+((( paper )))
+\end{tabularx}
+
+\vspace{6pt}
+((* endfor *))
+((* endif *))
+
+%----------------------------------------------------------------------------------------
+
+\end{center}
+
+\end{document}

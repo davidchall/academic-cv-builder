@@ -1,0 +1,10 @@
+name: stylish
+file: templates/stylish.tex
+language: xelatex
+
+strings:
+    variable_start: (((
+    variable_end:   )))
+    block_start:    ((*
+    block_end:      "*))"
+
